@@ -5,7 +5,7 @@ Manage packages on arch and arch based distros easily.
 This is a tiny tui frontend for installing and removing packages in arch linux and arch based distros.
 
 ## How to use it
-Using this is pretty straightforward, run pkgui, then you can see 3 menues. Pac install(for installing official packages), yay install(for install aur packages), remove package to remove the package. Aur packages takes some time to load and display.
+Using this is pretty straightforward, run pkgui, then you can see 3 menues. Pac install(for installing official packages), yay install(for install aur packages), remove package to remove the package. Aur packages may take some time to load and display.
 
 ## Prerequisites
 You should have fzf, yay, gum, bash installed.
