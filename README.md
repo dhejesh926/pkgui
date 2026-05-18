@@ -8,7 +8,7 @@ This is a tiny tui frontend for installing and removing packages in arch linux a
 Using this is pretty straightforward, run pkgui, then you can see 3 menues. Pac install(for installing official packages), yay install(for install aur packages), remove package to remove the package. Aur packages may take some time to load and display.
 
 ## Prerequisites
-You should have fzf, yay, gum, bash installed.
+You should have fzf(fuzzy finder), yay(aur helper), gum(beautify the script!!!), bash installed.
 
 ## This is how it looks
 <img width="1323" height="709" alt="screenshot_20260518_153918" src="https://github.com/user-attachments/assets/50656329-f00b-4861-9223-8a707396aa83" />
