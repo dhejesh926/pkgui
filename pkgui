@@ -1,0 +1,63 @@
+#!/usr/bin/env bash
+
+# Colors
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+BLUE='\033[0;34m'
+NC='\033[0m' # No Color
+
+done_screen() {
+    clear
+    echo -e "\n${GREEN}          Task Completed${NC}\n"
+    read -n 1 -s -r -p "Press any key to continue..."
+}
+
+# Show header
+echo -e "${BLUE} Package Manager UI${NC}"
+echo -e "${YELLOW}----------------------------${NC}"
+
+choice=$(gum choose \
+--header=" Choose Action" \
+--cursor=" " \
+--selected.foreground="212" \
+"Pac Install 󰣇 " \
+"Yay Install 󰀗 " \
+"Remove Package  ")
+
+case "$choice" in
+
+"Pac Install 󰣇 ")
+    echo -e "\n${YELLOW} 󰡦 Searching official repos...${NC}"
+    pkg=$(pacman -Slq | fzf --prompt="󰣇  Select package > " --height=100% --border --reverse --preview 'pacman -Si {}' --preview-window=down:50%)
+    if [ -n "$pkg" ]; then
+        echo -e "\n${GREEN}Installing $pkg...${NC}"
+        sudo pacman -S "$pkg" && done_screen || echo -e "${RED}✘✘✘ Installation failed${NC}"
+    else
+        echo -e "${YELLOW}No package selected.${NC}"
+    fi
+    ;;
+
+"Yay Install 󰀗 ")
+    echo -e "\n${YELLOW}󰡦 Searching AUR...${NC}"
+    pkg=$(yay -Slq | fzf --prompt="󰀗  Select AUR package > " --height=100% --border --reverse --preview 'yay -Si {}' --preview-window=down:50%)
+    if [ -n "$pkg" ]; then
+        echo -e "\n${GREEN}Installing $pkg...${NC}"
+        yay -S "$pkg" && done_screen || echo -e "${RED}✘✘✘ Installation failed${NC}"
+    else
+        echo -e "${YELLOW}No package selected.${NC}"
+    fi
+    ;;
+
+"Remove Package  ")
+    echo -e "\n${YELLOW} Select package to remove...${NC}"
+    pkg=$(pacman -Qq | fzf --prompt=" Remove package  > " --height=100% --border --reverse --preview 'pacman -Si {}' --preview-window=down:50%)
+    if [ -n "$pkg" ]; then
+        echo -e "\n${RED}Removing $pkg...${NC}"
+        sudo pacman -Rns "$pkg" && done_screen || echo -e "${RED}✘✘✘ Removal failed${NC}"
+    else
+        echo -e "${YELLOW}No package selected.${NC}"
+    fi
+    ;;
+
+esac
